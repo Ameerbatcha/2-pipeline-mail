@@ -1,41 +1,31 @@
-pipeline 
-{
+pipeline {
     agent any
 
-    stages 
-    {
-        stage('Build') 
-        {
-            steps 
-            {
-                echo 'Build App'
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Build World'
             }
         }
+            stage('Test') {
+            steps {
+                echo 'Test app'
+            }
+            }
+                stage('Deploy') {
+            steps {
+                echo 'Deploy application'
+            }
+                }
+        }
+    post {
+    success {
+     mail bcc: '', body: '''A Build was triggered for your job
 
-        stage('Test') 
-        {
-            steps 
-            {
-                echo 'Test App'
-            }
-        }
+Note: Donot Reply to this mail
 
-        stage('Deploy') 
-        {
-            steps 
-            {
-                echo 'Deploy App'
-            }
-        }
+Regards 
+Team Alpaha''', cc: '', from: '', replyTo: '', subject: 'Pipeline ran', to: 'ameerbatcha.learnings@gmail.com'
     }
-
-    post
-    {
-
-    	always
-    	{
-    		emailext body: 'Summary', subject: 'Pipeline Status', to: 'selenium3bymukesh@gmail.com'
-    	}
-
-    }
+    } 
 }
